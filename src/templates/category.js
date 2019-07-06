@@ -6,15 +6,16 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
 
-class BlogIndex extends React.Component {
+class CategoryPage extends React.Component {
   render() {
     const { data } = this.props
+    const { category } = data
     const siteTitle = data.site.siteMetadata.title
     const posts = data.allMarkdownRemark.edges
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="All posts" />
+        <SEO title={category} />
         <Bio />
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
@@ -43,16 +44,20 @@ class BlogIndex extends React.Component {
   }
 }
 
-export default BlogIndex
+export default CategoryPage
 
 export const pageQuery = graphql`
-  query {
+  query CategoryPage($category: String) {
     site {
       siteMetadata {
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      limit: 1000
+      filter: { fields: { category: { eq: $category } } }
+      ) {
       edges {
         node {
           excerpt

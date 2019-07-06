@@ -1,6 +1,11 @@
 ---
 title: My Second Post!
 date: "2015-05-06T23:46:37.121Z"
+category: Category 2
+tags:
+  - example
+  - post
+  - two post tag
 ---
 
 Wow! I love blogging so much already.

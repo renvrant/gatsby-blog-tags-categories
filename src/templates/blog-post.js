@@ -26,6 +26,14 @@ class BlogPostTemplate extends React.Component {
         >
           {post.frontmatter.title}
         </h1>
+        {post.frontmatter.tags.map(tag => (
+                    <Link
+                      to={`/tags/${tag}`}
+                      className="badge badge-primary p-2 m-1"
+                    >
+                      {tag}
+                    </Link>
+                  ))}
         <p
           style={{
             ...scale(-1 / 5),
@@ -90,6 +98,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        tags
       }
     }
   }
